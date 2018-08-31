@@ -8,7 +8,7 @@ if [ "$catalina_pid" = '' ]
 
 then
 
-    echo "Auto Tested Tomcat Status" | mailx -s "Tomcat not running. Starting tomcat server --> `hostname -i`" newclear_techops@millenniumit.com
+    echo "Auto Tested Tomcat Status" | mailx -s "Tomcat not running. Starting tomcat server --> `hostname -i`" your_e-mail@gmail.com
 
     echo "`date`|| Auto Tested Tomcat Status" >> CheckSattus.log
 

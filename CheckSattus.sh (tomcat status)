@@ -1,0 +1,29 @@
+#!/bin/bash
+
+catalina_pid=`ps -ef | grep catalina | grep java | awk ' { print $2 } '` > /dev/null 2>&1
+
+#echo $catalina_pid "     " $?
+
+if [ "$catalina_pid" = '' ]
+
+then
+
+    echo "Auto Tested Tomcat Status" | mailx -s "Tomcat not running. Starting tomcat server --> `hostname -i`" newclear_techops@millenniumit.com
+
+    echo "`date`|| Auto Tested Tomcat Status" >> CheckSattus.log
+
+        /x01/tomcat/current/bin/startup.sh > /dev/null 2>&1
+
+        if [ $? = 0 ]
+
+        then
+
+        echo "`date`|| Auto Tested Tomcat Status | tomcat Started Successfully" >> CheckSattus.log
+
+        fi
+
+
+
+fi
+
+echo "`date`|| Auto Tested Tomcat Status | No changes done" >> CheckSattus.log

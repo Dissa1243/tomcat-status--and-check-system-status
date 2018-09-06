@@ -1,0 +1,41 @@
+#/bin/bash
+
+sql_result1=`sqlplus -s ${ATS_DB_STRING} <<-        ESQL
+
+set head off;   
+
+SELECT DISTINCT SYSTEM_STATUS FROM ATS_SYSTEM_STATUS;
+
+   EXIT;
+
+ESQL`
+
+
+ssql_result1="${sql_result1%\\n}"
+
+#echo ${sql_result1}
+
+
+if [ ${sql_result1} -eq 1 ] ; then
+
+  echo "Contine Smoke Test!"
+
+  #echo "Smoke test continuing. $SYSTEM_NAME is Online " | mailx -s "Smoke test continuing. $SYSTEM_NAME is Online" "naveend@millenniumit.com" >>$SYSTEM_LOGS/syetemreadyness
+
+  mail -s "Smoke test continuing. $SYSTEM_NAME is Online" newclear_techops@millenniumit.com <<< "Smoke test continuing. $SYSTEM_NAME is Online"
+
+   #echo "${sql_result1}"
+
+   #echo "Applying SG DB Chages - FAIL"
+
+   #sg_result=0
+
+else
+
+  #echo "Status Mail"
+
+  #echo "Smoke test cannot continue. $SYSTEM_NAME is not Online " | mailx -s "Smoke test cannot continue. $SYSTEM_NAME is not Online" "naveend@millenniumit.com" >>$SYSTEM_LOGS/syetemreadyness
+
+ mail -s "Smoke test cannot continue. $SYSTEM_NAME is not Online" newclear_techops@millenniumit.com <<< "Smoke test cannot continue. $SYSTEM_NAME is not Online"
+
+fi
